@@ -1,15 +1,18 @@
-# Binaries for programs and plugins
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
+.idea/
+vendor/
+Gopkg.lock
+main
+tmp/
+.directory/
 
-# Test binary, built with `go test -c`
-*.test
+.DS_Store
 
-# Output of the go coverage tool, specifically when used with LiteIDE
-*.out
+profile.out
 
-# Dependency directories (remove the comment below to include it)
-# vendor/
+build/ac-front
+
+coverage.txt
+
+build/ac-catalog
+
+build/parrot

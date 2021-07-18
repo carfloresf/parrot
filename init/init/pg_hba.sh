@@ -1,0 +1,1 @@
+sed -i "\$i host\tall\t\tall\t\t0.0.0.0/0\t\ttrust" /var/lib/postgresql/data/pg_hba.conf
