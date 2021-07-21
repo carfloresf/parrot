@@ -1,12 +1,7 @@
 APPNAME ?= parrot
 
-# used by `lint` and `test` targets
-export REPORTS_DIR=./reports
-
-# used by `rpm` target
-export RPM_VERSION=$(shell date +"%Y%m%d%H%M%S")
-
-export CONF_DIR = ./conf
+export PORT= 8080
+export DATABASE_URL= postgres://bird:docker@localhost:5433/parrot
 
 build:
 	mkdir -p build

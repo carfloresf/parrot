@@ -3,7 +3,6 @@ package api
 import (
 	"fmt"
 	"net"
-	"time"
 
 	"github.com/buaazp/fasthttprouter"
 	// postgres import
@@ -21,11 +20,11 @@ type App struct {
 }
 
 // Initialize sets up the database connection and routes for the app
-func (a *App) Initialize(connectionString, appPort string) (err error) {
+func (a *App) Initialize(connectionString, appPort string) {
 	var controller controller.Controller
 
-	controller.Storage = storage.NewStorage(connectionString)
-	controller.Service.Storage = controller.Storage
+	storage := storage.NewStorage(connectionString)
+	controller.Service.Storage = storage
 
 	controller.Router = fasthttprouter.New()
 	controller.InitializeRoutes()
@@ -41,6 +40,8 @@ func (a *App) Initialize(connectionString, appPort string) (err error) {
 		log.Fatalf("listener already started")
 	}
 
+	var err error
+
 	a.listener, err = net.Listen("tcp4", fmt.Sprint(":", appPort))
 	if err != nil {
 		log.Fatalf("error creating the listener: %s", err)
@@ -55,23 +56,16 @@ func (a *App) Initialize(connectionString, appPort string) (err error) {
 			log.Fatalf("error starting the server: %s", err)
 		}
 	}()
-
-	return err
 }
 
 // Stop the API server.
-func (a *App) Stop() error {
-	var err error
-
+func (a *App) Stop() {
 	if a.listener != nil {
-		log.Info("stopping the API")
+		err := a.listener.Close()
+		if err != nil {
+			log.Fatalf("Error stopping the server: %s", err)
+		}
 
-		err = a.listener.Close()
-
-		time.Sleep(time.Second)
-
-		a.listener = nil
+		log.Info("API stopped")
 	}
-
-	return err
 }

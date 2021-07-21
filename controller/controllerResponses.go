@@ -9,10 +9,10 @@ import (
 	"github.com/valyala/fasthttp"
 )
 
-func respond(ctx *fasthttp.RequestCtx, code int, payload string) {
+func respondError(ctx *fasthttp.RequestCtx, code int, errString string) {
 	ctx.SetStatusCode(code)
 	ctx.SetContentType("application/json; charset=utf-8")
-	ctx.SetBodyString(payload)
+	ctx.SetBodyString(fmt.Sprintf(`{"error":"%s"}`, errString))
 }
 
 func respondInterface(ctx *fasthttp.RequestCtx, code int, payload interface{}) {
@@ -48,7 +48,7 @@ func (c *Controller) notFound(ctx *fasthttp.RequestCtx) {
 func (c *Controller) unauthorized(ctx *fasthttp.RequestCtx) {
 	ctx.SetStatusCode(fasthttp.StatusUnauthorized)
 	ctx.SetContentType("application/json; charset=utf-8")
-	ctx.SetBodyString(`{"er1ror": "Unauthorized"}`)
+	ctx.SetBodyString(`{"error": "Unauthorized"}`)
 }
 
 // healthcheck handler.

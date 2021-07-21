@@ -55,7 +55,7 @@ ALTER TABLE public."product" OWNER TO bird;
 CREATE TABLE "user" (
                         email varchar(100)  NOT NULL,
                         full_name varchar(255)  NOT NULL,
-                        password varchar(100)  NOT NULL,
+                        password_hash varchar(100)  NOT NULL,
                         CONSTRAINT user_pk PRIMARY KEY (email)
 );
 ALTER TABLE public."user" OWNER TO bird;

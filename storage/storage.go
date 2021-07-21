@@ -1,32 +1,32 @@
 package storage
 
 import (
-	"github.com/jackc/pgx/v4"
+	"github.com/jackc/pgx/v4/pgxpool"
 
 	"github.com/hellerox/parrot/model"
 )
 
 // DatabaseStorage with config data
 type DatabaseStorage struct {
-	conn *pgx.Conn
+	pool *pgxpool.Pool
 }
 
 // Storage executes functions on storage resources
 type Storage interface {
-	InsertUser(c model.User) error
-	InsertOrder(m model.Order) (int, error)
-	InsertProduct(m model.Product) (int, error)
-	InsertOrderProductRelation(cm model.OrderProductRelation) (int, error)
+	InsertUser(u model.User) error
+	GetUserHash(mail string) string
+	InsertOrder(o model.Order) (int, error)
+	InsertProduct(p model.Product) (int, error)
+	InsertOrderProductRelation(opr model.OrderProductRelation) (int, error)
 	UpdateOrder(o model.Order) error
+	GetReportData(r model.GenerateReportRequest) (model.GenerateReportResponse, error)
 }
 
 // NewStorage returns a new DatabaseOperator
 func NewStorage(connectionString string) Storage {
 	storage := DatabaseStorage{
-		conn: connect(connectionString),
+		pool: connect(connectionString),
 	}
-
-	storage.PrepareStatements()
 
 	return &storage
 }

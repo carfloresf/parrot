@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"os/signal"
 	"syscall"
@@ -14,35 +13,21 @@ import (
 var exit = make(chan os.Signal, 1) // nolint: gochecknoglobals
 
 func main() {
-	a := api.App{}
-
 	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-
 	connectionString := os.Getenv("DATABASE_URL")
-	if connectionString == "" {
-		connectionString = fmt.Sprintf("postgres://%s:%s@%s:%d/%s",
-			"bird", "docker", "localhost", 5433, "parrot")
-	}
 
-	log.Infof("setting connectionString: %s", connectionString)
+	if port == "" && connectionString == "" {
+		log.Fatalln("missing connection data")
+	}
 
 	signal.Notify(exit, syscall.SIGINT, syscall.SIGTERM)
 
-	err := a.Initialize(connectionString, port)
-	if err != nil {
-		log.Fatalf(err.Error())
-	}
+	a := api.App{}
+
+	a.Initialize(connectionString, port)
 
 	for range exit {
-		log.Info("Stopping server...")
-
-		err := a.Stop()
-		if err != nil {
-			log.Fatalf("Error stopping the server: %s", err)
-		}
+		a.Stop()
 
 		os.Exit(0)
 	}

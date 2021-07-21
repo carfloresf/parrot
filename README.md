@@ -1,6 +1,4 @@
-First version for ArtistCity CostumeMaterial Catalog
-
-Test environment - 
+Parrot APP
 
 SET:
 export DATABASE_URL=postgres://

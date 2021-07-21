@@ -3,7 +3,10 @@ package service
 import (
 	"github.com/hellerox/parrot/model"
 	"github.com/hellerox/parrot/storage"
+	"golang.org/x/crypto/bcrypt"
 )
+
+const Pepper = "secret-random-string"
 
 // Service controller
 type Service struct {
@@ -11,8 +14,13 @@ type Service struct {
 }
 
 // CreateUser creates users
-func (s *Service) CreateUser(ms model.User) (err error) {
-	err = s.Storage.InsertUser(ms)
+func (s *Service) CreateUser(user model.User) (err error) {
+	err = hashPassword(&user)
+	if err != nil {
+		return err
+	}
+
+	err = s.Storage.InsertUser(user)
 	if err != nil {
 		return err
 	}
@@ -24,7 +32,7 @@ func (s *Service) CreateUser(ms model.User) (err error) {
 func (s *Service) CreateOrder(o model.Order) (int, error) {
 	var totalOrder int64
 
-	oId, err := s.Storage.InsertOrder(o)
+	oID, err := s.Storage.InsertOrder(o)
 	if err != nil {
 		return 0, err
 	}
@@ -37,7 +45,7 @@ func (s *Service) CreateOrder(o model.Order) (int, error) {
 
 		op := model.OrderProductRelation{
 			ProductID: idp,
-			OrderID:   oId,
+			OrderID:   oID,
 			Amount:    p.Amount,
 		}
 
@@ -48,15 +56,49 @@ func (s *Service) CreateOrder(o model.Order) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-
 	}
 
-	o.ID = oId
+	o.ID = oID
 	o.Price = totalOrder
+
 	err = s.Storage.UpdateOrder(o)
 	if err != nil {
-		return oId, err
+		return oID, err
 	}
 
-	return oId, nil
+	return oID, nil
+}
+
+func (s *Service) GenerateReport(r model.GenerateReportRequest) (model.GenerateReportResponse, error) {
+	var res model.GenerateReportResponse
+
+	res, err := s.Storage.GetReportData(r)
+	if err != nil {
+		return res, err
+	}
+
+	return res, err
+}
+
+func (s *Service) GetUserHash(mail string) (hash string) {
+	hash = s.Storage.GetUserHash(mail)
+	return hash
+}
+
+func hashPassword(user *model.User) error {
+	if user.Password == "" {
+		return nil
+	}
+
+	pwBytes := []byte(user.Password + Pepper)
+
+	hashedBytes, err := bcrypt.GenerateFromPassword(pwBytes, bcrypt.DefaultCost)
+	if err != nil {
+		return err
+	}
+
+	user.PasswordHash = string(hashedBytes)
+	user.Password = ""
+
+	return nil
 }

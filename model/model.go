@@ -3,9 +3,10 @@ package model
 import "time"
 
 type User struct {
-	Email    string `db:"email" json:"email,omitempty"`
-	FullName string `db:"full_name" json:"fullName,omitempty"`
-	Password string `db:"password" json:"password,omitempty"`
+	Email        string `db:"email" json:"email,omitempty"`
+	FullName     string `db:"full_name" json:"fullName,omitempty"`
+	Password     string `db:"-" json:"password,omitempty"`
+	PasswordHash string `db:"password"`
 }
 
 type Order struct {
