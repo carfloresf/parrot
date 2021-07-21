@@ -1,9 +1,10 @@
 package service
 
 import (
+	"golang.org/x/crypto/bcrypt"
+
 	"github.com/hellerox/parrot/model"
 	"github.com/hellerox/parrot/storage"
-	"golang.org/x/crypto/bcrypt"
 )
 
 const Pepper = "secret-random-string"

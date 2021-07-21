@@ -6,12 +6,10 @@ import (
 	"encoding/json"
 	"net/http"
 
-	log "github.com/sirupsen/logrus"
-
-	"golang.org/x/crypto/bcrypt"
-
 	"github.com/buaazp/fasthttprouter"
+	log "github.com/sirupsen/logrus"
 	"github.com/valyala/fasthttp"
+	"golang.org/x/crypto/bcrypt"
 
 	"github.com/hellerox/parrot/model"
 	"github.com/hellerox/parrot/service"

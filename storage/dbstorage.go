@@ -42,8 +42,7 @@ func (ds *DatabaseStorage) InsertUser(u model.User) error {
 func (ds *DatabaseStorage) GetUserHash(mail string) string {
 	var hash string
 
-	err := ds.pool.QueryRow(context.Background(), `SELECT password_hash FROM "user" WHERE email = $1`, mail).Scan(&hash)
-	if err != nil {
+	if err := ds.pool.QueryRow(context.Background(), `SELECT password_hash FROM "user" WHERE email = $1`, mail).Scan(&hash); err != nil {
 		log.Errorf("error getting user hash: %s", err.Error())
 		return ""
 	}

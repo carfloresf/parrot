@@ -1,14 +1,13 @@
 package storage
 
 import (
-	"github.com/jackc/pgx/v4/pgxpool"
-
+	"github.com/driftprogramming/pgxpoolmock"
 	"github.com/hellerox/parrot/model"
 )
 
 // DatabaseStorage with config data
 type DatabaseStorage struct {
-	pool *pgxpool.Pool
+	pool pgxpoolmock.PgxPool
 }
 
 // Storage executes functions on storage resources
