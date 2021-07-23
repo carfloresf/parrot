@@ -1,6 +1,6 @@
 // +build integration
 
-package integration_tests
+package integration_test
 
 import (
 	"bytes"
@@ -42,7 +42,7 @@ func TestMain(m *testing.M) {
 		log.Fatal(err)
 	}
 
-	absDir, err := filepath.Abs(dir + "/../scripts/")
+	absDir, err := filepath.Abs(dir + "/../../scripts/")
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -14,6 +14,7 @@ import (
 func TestDatabaseStorage_InsertUser(t *testing.T) {
 	t.Parallel()
 	ctrl := gomock.NewController(t)
+
 	defer ctrl.Finish()
 
 	type fields struct {
@@ -31,7 +32,8 @@ func TestDatabaseStorage_InsertUser(t *testing.T) {
 	}
 
 	mockPool := pgxpoolmock.NewMockPgxPool(ctrl)
-	mockPool.EXPECT().Exec(gomock.Any(), `INSERT INTO "user" (email, full_name, password_hash) VALUES ($1,$2,$3)`, "hellerox@gmail.com", "Carlos Flores", "123")
+	mockPool.EXPECT().Exec(gomock.Any(), `INSERT INTO "user" (email, full_name, password_hash) VALUES ($1,$2,$3)`,
+		"hellerox@gmail.com", "Carlos Flores", "123")
 
 	tests := []struct {
 		name    string
@@ -59,6 +61,7 @@ func TestDatabaseStorage_InsertUser(t *testing.T) {
 func TestDatabaseStorage_GetUserHash(t *testing.T) {
 	t.Parallel()
 	ctrl := gomock.NewController(t)
+
 	defer ctrl.Finish()
 
 	type fields struct {
@@ -97,6 +100,7 @@ func TestDatabaseStorage_GetUserHash(t *testing.T) {
 
 func TestDatabaseStorage_InsertOrder(t *testing.T) {
 	t.Parallel()
+
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
@@ -150,7 +154,9 @@ func TestDatabaseStorage_InsertOrder(t *testing.T) {
 
 func TestDatabaseStorage_UpdatePriceOrder(t *testing.T) {
 	t.Parallel()
+
 	ctrl := gomock.NewController(t)
+
 	defer ctrl.Finish()
 
 	type fields struct {
@@ -196,6 +202,7 @@ func TestDatabaseStorage_UpdatePriceOrder(t *testing.T) {
 func TestDatabaseStorage_InsertProduct(t *testing.T) {
 	t.Parallel()
 	ctrl := gomock.NewController(t)
+
 	defer ctrl.Finish()
 
 	type fields struct {
@@ -209,7 +216,7 @@ func TestDatabaseStorage_InsertProduct(t *testing.T) {
 	p := model.Product{
 		Name:        "libro",
 		Price:       1234,
-		Description: "Producto Libro",
+		Description: "Product Libro",
 	}
 
 	mockPool := pgxpoolmock.NewMockPgxPool(ctrl)

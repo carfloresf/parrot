@@ -16,6 +16,9 @@ test:
 integration-test:
 	./scripts/integration-test.sh
 
+load-test:
+	go run tests/load_test/load_test_vegeta.go
+
 lint:
 	./scripts/lint.sh
 
@@ -23,6 +26,9 @@ docker-build:
 	./scripts/docker-build.sh
 
 docker-run:
-	docker run parrot -d -e
+	docker run parrot -d -e DATABASE_URL='postgres://bird:docker@localhost:5433/parrot' -e PORT='8080'
 
-.PHONY: build run test travis-build lint
+start-db:
+	./scripts/start-db.sh
+
+.PHONY: build run test integration-test lint docker-build docker-run start-db

@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/buaazp/fasthttprouter"
+	"github.com/go-playground/validator/v10"
 	log "github.com/sirupsen/logrus"
 	"github.com/valyala/fasthttp"
 	"golang.org/x/crypto/bcrypt"
@@ -24,12 +25,16 @@ type response struct {
 
 // Controller controller
 type Controller struct {
-	Router  *fasthttprouter.Router
-	Service service.Service
+	Router    *fasthttprouter.Router
+	Service   service.Service
+	Validator *validator.Validate
 }
 
 // InitializeRoutes route initialize
 func (c *Controller) InitializeRoutes() {
+	validate := validator.New()
+	c.Validator = validate
+
 	c.Router.HandleMethodNotAllowed = true
 	c.Router.NotFound = c.notFound
 	c.Router.MethodNotAllowed = c.methodNotAllowed
@@ -48,7 +53,13 @@ func (c *Controller) createUser(ctx *fasthttp.RequestCtx) {
 		return
 	}
 
-	err := c.Service.CreateUser(u)
+	err := c.Validator.Struct(u)
+	if err != nil {
+		respondError(ctx, fasthttp.StatusBadRequest, err.Error())
+		return
+	}
+
+	err = c.Service.CreateUser(u)
 	if err != nil {
 		respondError(ctx, fasthttp.StatusInternalServerError, err.Error())
 		return
@@ -113,7 +124,7 @@ func (c *Controller) BasicAuth(next fasthttp.RequestHandler) fasthttp.RequestHan
 				pair := bytes.SplitN(payload, []byte(":"), 2)
 				user := pair[0]
 				hash := c.Service.GetUserHash(string(user))
-				log.Println(string(pair[1]))
+
 				u := model.User{
 					Email:        string(user),
 					Password:     string(pair[1]),

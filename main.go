@@ -10,7 +10,7 @@ import (
 	"github.com/hellerox/parrot/api"
 )
 
-var exit = make(chan os.Signal, 1)
+var exit = make(chan os.Signal, 1) // golint:
 
 func main() {
 	port := os.Getenv("PORT")

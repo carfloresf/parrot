@@ -4,7 +4,6 @@ linters:
     - dogsled
     - dupl
     - funlen
-    - gochecknoglobals
     - gochecknoinits
     - gocognit
     - goconst
@@ -12,7 +11,6 @@ linters:
     - gocyclo
     - gofmt
     - goimports
-    - golint
     - gosec
     - lll
     - misspell

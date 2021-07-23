@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/jackc/pgx/v4/pgxpool"
-
 	log "github.com/sirupsen/logrus"
 
 	"github.com/hellerox/parrot/model"
@@ -46,13 +45,17 @@ func (ds *DatabaseStorage) GetUserHash(mail string) string {
 		return ""
 	}
 
+	var hash string
+
 	for rows.Next() {
-		var hash string
-		rows.Scan(&hash)
-		return hash
+		err := rows.Scan(&hash)
+		if err != nil {
+			log.Errorf("error getting user hash: %s", err.Error())
+			return ""
+		}
 	}
 
-	return ""
+	return hash
 }
 
 // InsertOrder on DB using the given data
@@ -70,11 +73,9 @@ func (ds *DatabaseStorage) InsertOrder(o model.Order) (int, error) {
 			log.Errorf("error inserting order: %s", err.Error())
 			return 0, err
 		}
-
-		return o.ID, nil
 	}
 
-	return 0, nil
+	return o.ID, nil
 }
 
 // UpdatePriceOrder on DB using the given data
@@ -147,11 +148,9 @@ FROM   sel
 			log.Errorf("error inserting order: %s", err.Error())
 			return 0, err
 		}
-
-		return p.ID, nil
 	}
 
-	return 0, nil
+	return p.ID, nil
 }
 
 // InsertOrderProductRelation using order id and product id

@@ -3,16 +3,16 @@ package model
 import "time"
 
 type User struct {
-	Email        string `db:"email" json:"email,omitempty"`
-	FullName     string `db:"full_name" json:"fullName,omitempty"`
-	Password     string `db:"-" json:"password,omitempty"`
+	Email        string `db:"email" json:"email,omitempty" validate:"required,email"`
+	FullName     string `db:"full_name" json:"fullName,omitempty" validate:"required"`
+	Password     string `db:"-" json:"password,omitempty" validate:"required,min=3"`
 	PasswordHash string `db:"password"`
 }
 
 type Order struct {
 	ID         int    `db:"id" json:"id"`
-	Email      string `db:"email" json:"email,omitempty"`
-	ClientName string `db:"client_name" json:"clientName,omitempty"`
+	Email      string `db:"email" json:"email,omitempty" validate:"required,email"`
+	ClientName string `db:"client_name" json:"clientName,omitempty" validate:"required,email"`
 	Price      int64  `db:"price" json:"price,omitempty"`
 	CreatedAt  time.Time
 	Products   []Product `json:"products,omitempty"`

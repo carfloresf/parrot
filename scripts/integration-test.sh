@@ -13,6 +13,6 @@ done
 echo "Running integration tests."
 
 # Generate tests report
-gotestsum --format testname -- -tags=integration ./integration_tests; test ${PIPESTATUS[0]} -eq 0 || status=${PIPESTATUS[0]}
+gotestsum --format testname -- -tags=integration ./tests/integration_test; test ${PIPESTATUS[0]} -eq 0 || status=${PIPESTATUS[0]}
 
 exit ${status:-0}
