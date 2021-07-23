@@ -1,9 +1,10 @@
 package service
 
 import (
+	"golang.org/x/crypto/bcrypt"
+
 	"github.com/hellerox/parrot/model"
 	"github.com/hellerox/parrot/storage"
-	"golang.org/x/crypto/bcrypt"
 )
 
 const Pepper = "secret-random-string"
@@ -61,7 +62,7 @@ func (s *Service) CreateOrder(o model.Order) (int, error) {
 	o.ID = oID
 	o.Price = totalOrder
 
-	err = s.Storage.UpdateOrder(o)
+	err = s.Storage.UpdatePriceOrder(o)
 	if err != nil {
 		return oID, err
 	}

@@ -6,12 +6,10 @@ import (
 	"encoding/json"
 	"net/http"
 
-	log "github.com/sirupsen/logrus"
-
-	"golang.org/x/crypto/bcrypt"
-
 	"github.com/buaazp/fasthttprouter"
+	log "github.com/sirupsen/logrus"
 	"github.com/valyala/fasthttp"
+	"golang.org/x/crypto/bcrypt"
 
 	"github.com/hellerox/parrot/model"
 	"github.com/hellerox/parrot/service"
@@ -44,13 +42,13 @@ func (c *Controller) InitializeRoutes() {
 }
 
 func (c *Controller) createUser(ctx *fasthttp.RequestCtx) {
-	var m model.User
-	if err := json.Unmarshal(ctx.Request.Body(), &m); err != nil {
+	var u model.User
+	if err := json.Unmarshal(ctx.Request.Body(), &u); err != nil {
 		respondError(ctx, fasthttp.StatusBadRequest, err.Error())
 		return
 	}
 
-	err := c.Service.CreateUser(m)
+	err := c.Service.CreateUser(u)
 	if err != nil {
 		respondError(ctx, fasthttp.StatusInternalServerError, err.Error())
 		return
@@ -60,7 +58,8 @@ func (c *Controller) createUser(ctx *fasthttp.RequestCtx) {
 		http.StatusCreated,
 		response{
 			Status: statusOK,
-		})
+		},
+	)
 }
 
 func (c *Controller) createOrder(ctx *fasthttp.RequestCtx) {
@@ -114,6 +113,7 @@ func (c *Controller) BasicAuth(next fasthttp.RequestHandler) fasthttp.RequestHan
 				pair := bytes.SplitN(payload, []byte(":"), 2)
 				user := pair[0]
 				hash := c.Service.GetUserHash(string(user))
+				log.Println(string(pair[1]))
 				u := model.User{
 					Email:        string(user),
 					Password:     string(pair[1]),

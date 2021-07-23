@@ -86,3 +86,6 @@ ALTER TABLE "order" ADD CONSTRAINT order_user
 ;
 
 -- End of file.
+
+-- data
+INSERT INTO public."user" (email, full_name, password_hash) VALUES ('carlos@mail.com', 'Carlos F', '123')

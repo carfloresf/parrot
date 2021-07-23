@@ -11,7 +11,10 @@ run: build
 	./build/${APPNAME}
 
 test:
-	./scripts/go.test.sh
+	./scripts/unit-test.sh
+
+integration-test:
+	./scripts/integration-test.sh
 
 lint:
 	./scripts/lint.sh
