@@ -40,30 +40,45 @@ func (ds *DatabaseStorage) InsertUser(u model.User) error {
 }
 
 func (ds *DatabaseStorage) GetUserHash(mail string) string {
-	var hash string
-
-	if err := ds.pool.QueryRow(context.Background(), `SELECT password_hash FROM "user" WHERE email = $1`, mail).Scan(&hash); err != nil {
+	rows, err := ds.pool.Query(context.Background(), `SELECT password_hash FROM "user" WHERE email = $1`, mail)
+	if err != nil {
 		log.Errorf("error getting user hash: %s", err.Error())
 		return ""
 	}
 
-	return hash
+	for rows.Next() {
+		var hash string
+		rows.Scan(&hash)
+		return hash
+	}
+
+	return ""
 }
 
 // InsertOrder on DB using the given data
 func (ds *DatabaseStorage) InsertOrder(o model.Order) (int, error) {
-	err := ds.pool.QueryRow(context.Background(),
-		`INSERT INTO "order" (client_name, price, user_email) VALUES ($1,$2,$3) RETURNING id`, o.ClientName, o.Price, o.Email).Scan(&o.ID)
+	rows, err := ds.pool.Query(context.Background(),
+		`INSERT INTO "order" (client_name, price, user_email) VALUES ($1,$2,$3) RETURNING id`, o.ClientName, o.Price, o.Email)
 	if err != nil {
 		log.Errorf("error inserting order: %s", err.Error())
 		return 0, err
 	}
 
-	return o.ID, nil
+	for rows.Next() {
+		err := rows.Scan(&o.ID)
+		if err != nil {
+			log.Errorf("error inserting order: %s", err.Error())
+			return 0, err
+		}
+
+		return o.ID, nil
+	}
+
+	return 0, nil
 }
 
-// UpdateOrder on DB using the given data
-func (ds *DatabaseStorage) UpdateOrder(o model.Order) error {
+// UpdatePriceOrder on DB using the given data
+func (ds *DatabaseStorage) UpdatePriceOrder(o model.Order) error {
 	_, err := ds.pool.Exec(context.Background(),
 		`UPDATE "order" SET price = $1 WHERE id = $2`, o.Price, o.ID)
 	if err != nil {
@@ -76,7 +91,7 @@ func (ds *DatabaseStorage) UpdateOrder(o model.Order) error {
 
 // InsertProduct is the function to insert products in DB, if the name exists it gets the id from DB
 func (ds *DatabaseStorage) InsertProduct(p model.Product) (int, error) {
-	err := ds.pool.QueryRow(context.Background(),
+	rows, err := ds.pool.Query(context.Background(),
 		`WITH sel AS
 (
        SELECT id,
@@ -114,7 +129,7 @@ SELECT id,
        "description"
 FROM   sel
 `,
-		p.Name, p.Price, p.Description).Scan(&p.ID, &p.Name, &p.Price, &p.Description)
+		p.Name, p.Price, p.Description)
 
 	if err != nil {
 		if err.Error() == "sql: no rows in result set" {
@@ -126,7 +141,17 @@ FROM   sel
 		return 0, err
 	}
 
-	return p.ID, nil
+	for rows.Next() {
+		err := rows.Scan(&p.ID, &p.Name, &p.Price, &p.Description)
+		if err != nil {
+			log.Errorf("error inserting order: %s", err.Error())
+			return 0, err
+		}
+
+		return p.ID, nil
+	}
+
+	return 0, nil
 }
 
 // InsertOrderProductRelation using order id and product id

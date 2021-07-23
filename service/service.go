@@ -62,7 +62,7 @@ func (s *Service) CreateOrder(o model.Order) (int, error) {
 	o.ID = oID
 	o.Price = totalOrder
 
-	err = s.Storage.UpdateOrder(o)
+	err = s.Storage.UpdatePriceOrder(o)
 	if err != nil {
 		return oID, err
 	}

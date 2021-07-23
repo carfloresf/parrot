@@ -17,7 +17,7 @@ type Storage interface {
 	InsertOrder(o model.Order) (int, error)
 	InsertProduct(p model.Product) (int, error)
 	InsertOrderProductRelation(opr model.OrderProductRelation) (int, error)
-	UpdateOrder(o model.Order) error
+	UpdatePriceOrder(o model.Order) error
 	GetReportData(r model.GenerateReportRequest) (model.GenerateReportResponse, error)
 }
 
