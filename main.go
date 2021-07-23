@@ -10,14 +10,14 @@ import (
 	"github.com/hellerox/parrot/api"
 )
 
-var exit = make(chan os.Signal, 1) // nolint: gochecknoglobals
+var exit = make(chan os.Signal, 1)
 
 func main() {
 	port := os.Getenv("PORT")
 	connectionString := os.Getenv("DATABASE_URL")
 
 	if port == "" && connectionString == "" {
-		log.Fatalln("missing connection data")
+		log.Fatalf("missing connection data: %s %s", port, connectionString)
 	}
 
 	signal.Notify(exit, syscall.SIGINT, syscall.SIGTERM)

@@ -19,4 +19,10 @@ integration-test:
 lint:
 	./scripts/lint.sh
 
+docker-build:
+	./scripts/docker-build.sh
+
+docker-run:
+	docker run parrot -d -e
+
 .PHONY: build run test travis-build lint

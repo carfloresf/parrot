@@ -82,12 +82,12 @@ func TestMain(m *testing.M) {
 	a.Initialize(databaseURL, portAPI)
 
 	code := m.Run()
-	/*
-		// Purge created Docker
-		if err := pool.Purge(resource); err != nil {
-			log.Errorf("Could not purge resource: %s", err)
-		}
-	*/
+
+	// Purge created Docker
+	if err := pool.Purge(resource); err != nil {
+		log.Errorf("Could not purge resource: %s", err)
+	}
+
 	os.Exit(code)
 }
 
@@ -141,7 +141,7 @@ func TestEndpoints_CreateUser(t *testing.T) {
 				t.Error(err)
 			}
 
-			assert.Equal(t, string(body), tt.expectedBody)
+			assert.Equal(t, tt.expectedBody, string(body))
 			assert.Equal(t, tt.expectedCode, resp.StatusCode)
 		})
 	}
@@ -186,7 +186,7 @@ func TestEndpoints_CreateOrder(t *testing.T) {
 			password:     "uno",
 		},
 		{
-			name: "Duplicate",
+			name: "Unauthorized",
 			request: `{
 						"email":"carlos@mail.com",
 						"fullName":"Carlos Flores",
@@ -222,7 +222,76 @@ func TestEndpoints_CreateOrder(t *testing.T) {
 				t.Error(err)
 			}
 
-			assert.Equal(t, tt.expectedBody, string(body))
+			assert.JSONEq(t, tt.expectedBody, string(body))
+			assert.Equal(t, tt.expectedCode, resp.StatusCode)
+		})
+	}
+}
+
+func TestEndpoints_GenerateReport(t *testing.T) {
+	tests := []struct {
+		name         string
+		request      string
+		expectedCode int
+		expectedBody string
+		user         string
+		password     string
+	}{
+		{
+			name: "Successful",
+			request: `{
+						"from":"2015-01-28T17:41:52Z",
+						"to": "2215-01-28T17:41:52Z"
+					}`,
+			expectedCode: http.StatusCreated,
+			expectedBody: `{
+							"data": [
+								{
+									"name": "tres",
+									"totalAmount": 15111,
+									"totalPrice": 302220
+								},
+								{
+									"name": "dos",
+									"totalAmount": 15,
+									"totalPrice": 30
+								},
+								{
+									"name": "uno",
+									"totalAmount": 5,
+									"totalPrice": 5
+								}
+							]
+						}`,
+			user:     "carflores@gmail.com",
+			password: "uno",
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			var jsonStr = []byte(tt.request)
+			req, err := http.NewRequest(http.MethodPost, "http://localhost:"+portAPI+"/report", bytes.NewBuffer(jsonStr))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			req.SetBasicAuth(tt.user, tt.password)
+
+			client := &http.Client{}
+			resp, err := client.Do(req)
+			if err != nil {
+				t.Error(err)
+			}
+			defer resp.Body.Close()
+
+			body, err := ioutil.ReadAll(resp.Body)
+			if err != nil {
+				t.Error(err)
+			}
+
+			assert.JSONEq(t, tt.expectedBody, string(body))
 			assert.Equal(t, tt.expectedCode, resp.StatusCode)
 		})
 	}
