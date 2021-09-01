@@ -12,10 +12,10 @@ require (
 	github.com/driftprogramming/pgxpoolmock v1.1.0
 	github.com/go-playground/universal-translator v0.17.0 // indirect
 	github.com/go-playground/validator v9.31.0+incompatible
-	github.com/go-playground/validator/v10 v10.7.0 // indirect
+	github.com/go-playground/validator/v10 v10.7.0
 	github.com/golang/mock v1.6.0
 	github.com/influxdata/tdigest v0.0.1 // indirect
-	github.com/jackc/pgx/v4 v4.12.0
+	github.com/jackc/pgx/v4 v4.13.0
 	github.com/klauspost/compress v1.13.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
