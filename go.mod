@@ -16,7 +16,6 @@ require (
 	github.com/golang/mock v1.6.0
 	github.com/influxdata/tdigest v0.0.1 // indirect
 	github.com/jackc/pgx/v4 v4.13.0
-	github.com/klauspost/compress v1.13.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/lib/pq v1.10.2
@@ -29,7 +28,7 @@ require (
 	github.com/sirupsen/logrus v1.8.1
 	github.com/stretchr/testify v1.7.0
 	github.com/tsenart/vegeta/v12 v12.8.4
-	github.com/valyala/fasthttp v1.28.0
+	github.com/valyala/fasthttp v1.29.0
 	github.com/xeipuuv/gojsonpointer v0.0.0-20190905194746-02993c407bfb // indirect
 	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97
 	golang.org/x/net v0.0.0-20210716203947-853a461950ff // indirect
