@@ -4,10 +4,8 @@ module github.com/hellerox/parrot
 go 1.16
 
 require (
-	github.com/Microsoft/go-winio v0.5.0 // indirect
 	github.com/andybalholm/brotli v1.0.3 // indirect
 	github.com/buaazp/fasthttprouter v0.1.1
-	github.com/cenkalti/backoff/v4 v4.1.1 // indirect
 	github.com/containerd/continuity v0.1.0 // indirect
 	github.com/driftprogramming/pgxpoolmock v1.1.0
 	github.com/go-playground/validator/v10 v10.9.0
@@ -18,7 +16,7 @@ require (
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/moby/term v0.0.0-20210619224110-3f7ff695adc6 // indirect
 	github.com/nouney/randomstring v0.0.0-20180330205616-1374daa59f01
-	github.com/ory/dockertest/v3 v3.8.0
+	github.com/ory/dockertest/v3 v3.8.1
 	github.com/sirupsen/logrus v1.8.1
 	github.com/stretchr/testify v1.7.0
 	github.com/tsenart/vegeta/v12 v12.8.4
