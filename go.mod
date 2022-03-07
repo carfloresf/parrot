@@ -10,7 +10,7 @@ require (
 	github.com/go-playground/validator/v10 v10.10.0
 	github.com/golang/mock v1.6.0
 	github.com/influxdata/tdigest v0.0.1 // indirect
-	github.com/jackc/pgx/v4 v4.14.1
+	github.com/jackc/pgx/v4 v4.15.0
 	github.com/lib/pq v1.10.4
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/moby/term v0.0.0-20210619224110-3f7ff695adc6 // indirect
