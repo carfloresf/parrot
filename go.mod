@@ -17,7 +17,7 @@ require (
 	github.com/nouney/randomstring v0.0.0-20180330205616-1374daa59f01
 	github.com/ory/dockertest/v3 v3.8.1
 	github.com/sirupsen/logrus v1.8.1
-	github.com/stretchr/testify v1.7.0
+	github.com/stretchr/testify v1.7.1
 	github.com/tsenart/vegeta/v12 v12.8.4
 	github.com/valyala/fasthttp v1.34.0
 	github.com/xeipuuv/gojsonpointer v0.0.0-20190905194746-02993c407bfb // indirect
