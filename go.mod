@@ -7,7 +7,7 @@ require (
 	github.com/buaazp/fasthttprouter v0.1.1
 	github.com/containerd/continuity v0.1.0 // indirect
 	github.com/driftprogramming/pgxpoolmock v1.1.0
-	github.com/go-playground/validator/v10 v10.10.1
+	github.com/go-playground/validator/v10 v10.11.0
 	github.com/golang/mock v1.6.0
 	github.com/influxdata/tdigest v0.0.1 // indirect
 	github.com/jackc/pgx/v4 v4.16.0
