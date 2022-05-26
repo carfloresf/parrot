@@ -16,7 +16,7 @@ require (
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/moby/term v0.0.0-20210619224110-3f7ff695adc6 // indirect
 	github.com/nouney/randomstring v0.0.0-20180330205616-1374daa59f01
-	github.com/ory/dockertest/v3 v3.9.0
+	github.com/ory/dockertest/v3 v3.9.1
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/cobra v1.0.0 // indirect
 	github.com/stretchr/testify v1.7.1
