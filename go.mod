@@ -1,7 +1,7 @@
 module github.com/hellerox/parrot
 
 // +heroku goVersion go1.16
-go 1.18
+go 1.19
 
 require (
 	bazil.org/fuse v0.0.0-20160811212531-371fbbdaa898 // indirect
