@@ -9,7 +9,7 @@ require (
 	github.com/go-playground/validator/v10 v10.11.0
 	github.com/golang/mock v1.6.0
 	github.com/jackc/pgx/v4 v4.17.2
-	github.com/lib/pq v1.10.6
+	github.com/lib/pq v1.10.7
 	github.com/nouney/randomstring v0.0.0-20180330205616-1374daa59f01
 	github.com/ory/dockertest/v3 v3.9.1
 	github.com/sirupsen/logrus v1.9.0
