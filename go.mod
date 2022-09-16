@@ -6,7 +6,7 @@ go 1.19
 require (
 	github.com/buaazp/fasthttprouter v0.1.1
 	github.com/driftprogramming/pgxpoolmock v1.1.0
-	github.com/go-playground/validator/v10 v10.11.0
+	github.com/go-playground/validator/v10 v10.11.1
 	github.com/golang/mock v1.6.0
 	github.com/jackc/pgx/v4 v4.17.2
 	github.com/lib/pq v1.10.7
