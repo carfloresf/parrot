@@ -16,7 +16,7 @@ require (
 	github.com/stretchr/testify v1.8.0
 	github.com/tsenart/vegeta/v12 v12.8.4
 	github.com/valyala/fasthttp v1.40.0
-	golang.org/x/crypto v0.0.0-20221005025214-4161e89ecf1b
+	golang.org/x/crypto v0.0.0-20221012134737-56aed061732a
 )
 
 require (
