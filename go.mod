@@ -13,7 +13,7 @@ require (
 	github.com/nouney/randomstring v0.0.0-20180330205616-1374daa59f01
 	github.com/ory/dockertest/v3 v3.9.1
 	github.com/sirupsen/logrus v1.9.0
-	github.com/stretchr/testify v1.8.0
+	github.com/stretchr/testify v1.8.1
 	github.com/tsenart/vegeta/v12 v12.8.4
 	github.com/valyala/fasthttp v1.40.0
 	golang.org/x/crypto v0.0.0-20221012134737-56aed061732a
