@@ -28,4 +28,4 @@ jobs:
       run: go test -v ./...
       
     - name: Go Coverage
-      uses: gwatts/go-coverage-action@v1.2.0
+      uses: gwatts/go-coverage-action@v1.3.0
