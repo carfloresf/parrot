@@ -1,0 +1,1 @@
+{"go-coverage-action-fmt":1,"coverage_pct":34.7,"pkg_stats":{"github.com/hellerox/parrot":[0],"github.com/hellerox/parrot/api":[0],"github.com/hellerox/parrot/controller":[0],"github.com/hellerox/parrot/model":[0],"github.com/hellerox/parrot/service":[0],"github.com/hellerox/parrot/storage":[34.7],"github.com/hellerox/parrot/tests/load_test":[0]}}
