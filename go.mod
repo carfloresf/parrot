@@ -8,7 +8,8 @@ require (
 	github.com/driftprogramming/pgxpoolmock v1.1.0
 	github.com/go-playground/validator/v10 v10.12.0
 	github.com/golang/mock v1.6.0
-	github.com/jackc/pgx/v4 v4.18.1
+	github.com/jackc/pgx/v4 v4.12.1-0.20210724153913-640aa07df17c
+	github.com/jackc/pgx/v5 v5.3.1
 	github.com/lib/pq v1.10.7
 	github.com/nouney/randomstring v0.0.0-20180330205616-1374daa59f01
 	github.com/ory/dockertest/v3 v3.9.1
