@@ -15,7 +15,7 @@ require (
 	github.com/ory/dockertest/v3 v3.9.1
 	github.com/sirupsen/logrus v1.9.0
 	github.com/stretchr/testify v1.8.2
-	github.com/tsenart/vegeta/v12 v12.8.4
+	github.com/tsenart/vegeta/v12 v12.11.1
 	github.com/valyala/fasthttp v1.45.0
 	golang.org/x/crypto v0.8.0
 )
